@@ -1,8 +1,9 @@
 import axios from 'axios'
+require('dotenv').config()
 
-const localURL = "http://localhost:5000"
+const serverURL = process.env.NODE_ENV === 'production' ? '/' : "http://localhost:5000"
 
-const API = axios.create({baseURL: '/'})
+const API = axios.create({baseURL: serverURL})
 
 export const sendSchedules = (data) => API.post('/schedules/add', data)
 

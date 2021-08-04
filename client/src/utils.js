@@ -1,8 +1,8 @@
 export const stringToDate = (str) =>{
         const date = new Date(str)
-        const hour = date.getHours().toLocaleString()
+        const hour = date.getUTCHours()
         const h = formatTime(hour > 12 ? hour - 12 : hour)
-        const m = formatTime(date.getMinutes().toLocaleString())
+        const m = formatTime(date.getUTCMinutes())
         const a = formatTime(hour > 12 ? 'PM' : 'AM')
         return {h, m, a}
     }
