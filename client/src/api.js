@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API = axios.create({baseURL: '/'})
+const API = axios.create({baseURL: 'https://mern-shedule-manager.herokuapp.com'})
 
 export const sendSchedules = (data) => API.post('/schedules/add', data)
 
