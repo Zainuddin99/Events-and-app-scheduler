@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API = axios.create({baseURL: '/'})
+const localURL = "http://localhost:5000"
+
+const API = axios.create({baseURL: localURL})
 
 export const sendSchedules = (data) => API.post('/schedules/add', data)
 
