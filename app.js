@@ -34,11 +34,6 @@ if(process.env.NODE_ENV === 'production'){
     })
 }
 
-//All request handlers
-app.use('*', (req, res)=>{
-    res.status(404).json({Message: 'No routes found'})
-})
-
 const PORT = process.env.PORT || 5000
 
 const start = async() =>{
