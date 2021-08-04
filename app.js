@@ -23,11 +23,12 @@ app.use('/apps/limited-apps', limitedApps)
 //Error handler
 app.use(defaultErrorHandler)
 
-
-
+//Post react build code when deploying
 if(process.env.NODE_ENV === 'production'){
+    //set static assets
     app.use(express.static('/client/build'))
 
+    //Provides front end
     app.get('*', (req, res)=>{
         res.sendFile(path.resolve(__dirname,'client','build', 'index.js'))
     })
