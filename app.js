@@ -5,20 +5,28 @@ const app = express()
 require('dotenv').config()
 const cors = require('cors')
 const path = require('path')
+const passport = require('passport')
+require('./authenticate')
 
 //Midllewares
 app.use(cors())
 app.use(express.json())
 
+//Initializing passport
+app.use(passport.initialize())
+
 //Routers
+const users = require('./Routers/users')
 const schedules = require('./Routers/schedules')
 const blockedApps = require('./Routers/blockedApps')
 const limitedApps = require('./Routers/limitedApps')
+const { createCustomErrorInstance } = require('./Errorhandlers/customErrorHandle')
 
 //Router handlers
+app.use('/users', users)
 app.use('/schedules', schedules)
 app.use('/apps/blocked-apps', blockedApps)
-app.use('/apps/limited-apps', limitedApps)
+app.use('/apps/limited-apps', limitedApps) 
 
 //Error handler
 app.use(defaultErrorHandler)

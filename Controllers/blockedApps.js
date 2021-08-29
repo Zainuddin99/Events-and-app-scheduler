@@ -3,11 +3,12 @@ const asyncWrapper = require("../Errorhandlers/asyncWrapper");
 
 const addBlockedApp = asyncWrapper(async(req, res)=>{
     const { appName } = req.body
+    const {_id} = req.user
     const {id} = req.params
-    const updatedDocument = await Schedules.findOneAndUpdate({_id: id},
+    const updatedDocument = await Schedules.findOneAndUpdate({_id, "schedules._id": id},
         {
             $push:{
-                blockedApps: {name: appName}
+                "schedules.$.blockedApps": {name: appName}
             }
         })
     if(!updatedDocument){
@@ -17,12 +18,12 @@ const addBlockedApp = asyncWrapper(async(req, res)=>{
 })
 
 const removeBlockedApp = asyncWrapper(async(req, res)=>{
+    const {_id} = req.user
     const {id, appId} = req.params
-    console.log(id);
-    const updatedDocument = await Schedules.findOneAndUpdate({_id: id},
+    const updatedDocument = await Schedules.findOneAndUpdate({_id, "schedules._id": id},
         {
             $pull:{
-                blockedApps: {_id: appId}
+                "schedules.$.blockedApps": {_id: appId}
             }
         })
     if(!updatedDocument){
@@ -32,9 +33,11 @@ const removeBlockedApp = asyncWrapper(async(req, res)=>{
 })
 
 const getBlockedApps = asyncWrapper(async(req, res)=>{
+    const {_id} = req.user
     const {id} = req.params
-    const data = await Schedules.findOne({_id: id}).select('blockedApps')
-    res.status(200).json({message: 'Successfull', result: data})
+    const data = await Schedules.findOne({_id}).select('schedules')
+    const result = data.schedules.find((item)=>item._id.toString() === id.toString())
+    res.status(200).json({message: 'Successfull', result: result.blockedApps})
 })
 
 module.exports = {addBlockedApp, removeBlockedApp, getBlockedApps}

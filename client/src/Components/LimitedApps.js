@@ -32,7 +32,7 @@ function LimitedApps() {
 
     useEffect(()=>{
         getAllLimitedAppsFromApi(id)
-    }, [])
+    }, [getAllLimitedAppsFromApi, id])
 
     useEffect(()=>{
         if(isModalOpen){

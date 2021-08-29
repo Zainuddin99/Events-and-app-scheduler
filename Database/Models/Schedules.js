@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const limitedAppsSchema = mongoose.Schema({
     name: {type: String, required: true},
@@ -24,4 +25,12 @@ const scheduleSchema = mongoose.Schema({
     limitedApps: [limitedAppsSchema]
 })
 
-module.exports = mongoose.model('Schedules', scheduleSchema)
+const userSchema = mongoose.Schema({
+    schedules: [scheduleSchema],
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true}
+})
+
+userSchema.plugin(passportLocalMongoose)
+
+module.exports = mongoose.model('Users', userSchema)

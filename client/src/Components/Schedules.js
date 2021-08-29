@@ -38,8 +38,8 @@ function Schedules() {
                             </div>
                             </div>
                             <div className='link-container'>
-                            <Link to={`/apps/${_id}/blocked-apps`}><Button variant='dark'>Work time</Button></Link>
-                            <Link to={`/apps/${_id}/limited-apps`}><Button variant='dark'>Non-Work time</Button></Link>
+                            <Link to={`/apps/${_id}/blocked-apps`}><Button variant='dark'>Blocked Apps</Button></Link>
+                            <Link to={`/apps/${_id}/limited-apps`}><Button variant='dark'>Limited Apps</Button></Link>
                             </div>
                         </div>
                     )
